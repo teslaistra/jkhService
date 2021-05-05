@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace jkhService.Presentation.Models
+namespace jkhService.Domain.Entities
 {
-    public class TopicsModel
+    public class Topics
     {
-        public string Name { get; set; }
 
+        public string Name { get; set; }
         public string Description { get; set; }
+
     }
 }
