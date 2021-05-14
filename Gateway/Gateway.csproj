@@ -2,9 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>b37e8caf-44a2-4119-838d-2e03147a535f</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Новая папка\**" />
+    <Content Remove="Новая папка\**" />
+    <EmbeddedResource Remove="Новая папка\**" />
+    <None Remove="Новая папка\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
     <PackageReference Include="Sentry" Version="3.3.4" />
     <PackageReference Include="Sentry.AspNetCore" Version="3.3.4" />
