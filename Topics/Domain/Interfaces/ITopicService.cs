@@ -10,6 +10,6 @@ namespace Topics.Domain.Interfaces
     {
         Task<Topic[]> GetTopics();
 
-        Task AddTopic(Topic topic);
+        //Task AddTopic(Topic topic);
     }
 }

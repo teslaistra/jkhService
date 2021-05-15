@@ -21,5 +21,6 @@ RUN dotnet publish "Topics.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
+EXPOSE 5000
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Topics.dll"]

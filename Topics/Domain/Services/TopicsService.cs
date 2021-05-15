@@ -21,16 +21,16 @@ namespace Topics.Domain.Services
             return await _topicRepository.GetTopics();
         }
 
-        public async Task AddExercise(Topic topic)
-        {
-            if (topic == null)
-            {
-                Console.WriteLine("bad argument");
-                throw new ArgumentNullException(nameof(topic));
-            }
+        //public async Task AddTopic(Topic topic)
+        //{
+        //    if (topic == null)
+        //    {
+        //        Console.WriteLine("bad argument");
+        //        throw new ArgumentNullException(nameof(topic));
+        //    }
 
-            Console.WriteLine("repository");
-            await _topicRepository.AddTopic(topic);
-        }
+        //    Console.WriteLine("repository");
+        //    await _topicRepository.AddTopic(topic);
+        //}
     }
 }

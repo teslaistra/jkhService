@@ -14,6 +14,7 @@ using Topics.Domain.Interfaces;
 using Topics.Domain.Services;
 using Sentry.AspNetCore;
 using Serilog;
+using Topics.Infrastructure.Repositories;
 
 namespace Topics
 {
@@ -31,7 +32,7 @@ namespace Topics
         {
             services.AddControllers();
             services.AddTransient<ITopicService, TopicsService>();
-            // services.AddTransient<ITopicRepository, TopicRe>
+            services.AddTransient<ITopicRepository, TopicRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
