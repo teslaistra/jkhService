@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace Gateway.Controllers
 
         // GET: api/Gateway
         [HttpGet]
-        public async Task<IActionResult> GetFitnessRecords()
+        public async Task<IActionResult> GetTopics()
         {
             Console.WriteLine("tut");
             var logger = new LoggerConfiguration()
@@ -31,8 +32,27 @@ namespace Gateway.Controllers
                    .Enrich.FromLogContext()
                    .CreateLogger();
 
-            var result = "OK";
-            return Ok(result);
+            try
+            {
+
+                logger.Error("Новый поиск упражнений");
+
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("sentry-header", "123");
+                    //Реализация обращения к сервису
+                    var url = _configuration.GetSection("FitnessRecordsUri").Value;
+                    var resultMessage = await client.GetAsync($"{url}exercises");
+                    resultMessage.EnsureSuccessStatusCode();
+                    var result = await resultMessage.Content.ReadAsStringAsync();
+                    return Ok(result);
+                }
+            }
+            catch (Exception e)
+            {
+                logger.Fatal(e, "Произошла фатальная ошибка");
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
+            }
         }
     }
 }

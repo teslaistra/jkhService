@@ -29,7 +29,9 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/weatherforecast",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/topics",
+      "httpPort": 10003,
+      "sslPort": 44382,
       "publishAllPorts": true,
       "useSSL": true
     }
