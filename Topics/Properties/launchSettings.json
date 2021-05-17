@@ -30,7 +30,7 @@
       "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/topics",
-      "httpPort": 10003,
+      "httpPort": 44381,
       "sslPort": 44382,
       "publishAllPorts": true,
       "useSSL": true

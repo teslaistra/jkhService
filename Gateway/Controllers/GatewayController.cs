@@ -26,7 +26,6 @@ namespace Gateway.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTopics()
         {
-            Console.WriteLine("tut");
             var logger = new LoggerConfiguration()
                    .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
                    .Enrich.FromLogContext()
@@ -35,14 +34,17 @@ namespace Gateway.Controllers
             try
             {
 
-                logger.Error("Новый поиск упражнений");
+                logger.Error("Новый поиск тем");
 
                 using (HttpClient client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Add("sentry-header", "123");
                     //Реализация обращения к сервису
-                    var url = _configuration.GetSection("FitnessRecordsUri").Value;
-                    var resultMessage = await client.GetAsync($"{url}exercises");
+                    var url = _configuration.GetSection("TopicsURI").Value;
+                    Console.WriteLine($"{url}topics");
+
+                    var resultMessage = await client.GetAsync($"{url}topics");
+
                     resultMessage.EnsureSuccessStatusCode();
                     var result = await resultMessage.Content.ReadAsStringAsync();
                     return Ok(result);
