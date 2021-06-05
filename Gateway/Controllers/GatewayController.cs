@@ -44,6 +44,7 @@ namespace Gateway.Controllers
                     Console.WriteLine($"{url}topics");
 
                     var resultMessage = await client.GetAsync($"{url}topics");
+                    Console.WriteLine($"{url}topics");
 
                     resultMessage.EnsureSuccessStatusCode();
                     var result = await resultMessage.Content.ReadAsStringAsync();
