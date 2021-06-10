@@ -43,5 +43,14 @@ namespace Topics.Domain.Services
             await _topicRepository.DeleteTopic(topic);
         }
 
+        public async Task EditTopic(Topic topic)
+        {
+            if (topic == null)
+            {
+                Console.WriteLine("bad argument");
+                throw new ArgumentNullException(nameof(topic));
+            }
+            await _topicRepository.EditTopic(topic);
+        }
     }
 }

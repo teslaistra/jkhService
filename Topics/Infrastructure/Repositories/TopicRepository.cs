@@ -66,5 +66,32 @@ namespace Topics.Infrastructure.Repositories
                 await cmd.ExecuteNonQueryAsync();
             }
         }
+
+        public async Task EditTopic(Topic topic)
+        {   var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
+            string description;
+            string name; 
+
+            await connection.OpenAsync();
+            using (var cmd = new MySqlCommand($"SELECT * FROM jkh.categories WHERE UID = {topic.Id}", connection))
+            {
+                var reader = await cmd.ExecuteReaderAsync();
+                reader.Read();
+                name = topic.Name ?? Encoding.UTF8.GetString(((byte[])reader["name"]));
+                description = topic.Description ?? Encoding.UTF8.GetString(((byte[])reader["description"]));
+            }
+
+            connection.Close();
+            
+
+            connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
+            await connection.OpenAsync();
+            using (var cmd = new MySqlCommand($"UPDATE jkh.categories t SET t.description = '{description}', t.name = '{name}' WHERE t.UID = {topic.Id}", connection))
+            {
+                Console.WriteLine($"UPDATE jkh.categories t SET t.description = '{description}', t.name = '{name}' WHERE t.UID = {topic.Id}");
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
     }
 }

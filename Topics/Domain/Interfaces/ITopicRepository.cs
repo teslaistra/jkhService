@@ -11,5 +11,6 @@ namespace Topics.Domain.Interfaces
         Task<Topic[]> GetTopics();
         Task AddTopic(Topic topic);
         Task DeleteTopic(Topic topic);
+        Task EditTopic(Topic topic);
     }
 }

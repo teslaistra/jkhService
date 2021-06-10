@@ -18,8 +18,8 @@ namespace Topics.Presentation.Models
 
         public TopicModel(Topic topic)
         {
-            Name = topic?.Name ?? "";
-            Description = topic?.Description ?? "";
+            Name = topic?.Name ?? null;
+            Description = topic?.Description ?? null;
             Id = (int) topic.Id;
         }
 
