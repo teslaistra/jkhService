@@ -9,7 +9,7 @@ namespace Topics.Domain.Interfaces
     public interface ITopicService
     {
         Task<Topic[]> GetTopics();
-
-        //Task AddTopic(Topic topic);
+        Task AddTopic(Topic topic);
+        Task DeleteTopic(Topic topic);
     }
 }

@@ -31,6 +31,7 @@ namespace Topics
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddTransient<ITopicService, TopicsService>();
             services.AddTransient<ITopicRepository, TopicRepository>();
         }

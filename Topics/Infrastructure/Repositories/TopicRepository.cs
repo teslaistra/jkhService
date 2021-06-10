@@ -47,5 +47,24 @@ namespace Topics.Infrastructure.Repositories
             return topic.Select(e => e.ToEntity()).ToArray();
         }
 
+        public async Task AddTopic(Topic topic)
+        {
+            var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
+            await connection.OpenAsync();
+            using (var cmd = new MySqlCommand($" INSERT INTO jkh.categories (name, description) VALUES ('{topic.Name}', '{topic.Description}')", connection))
+            {
+                await cmd.ExecuteNonQueryAsync();
+            }   
+        }
+
+        public async Task DeleteTopic(Topic topic)
+        {
+            var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
+            await connection.OpenAsync();
+            using (var cmd = new MySqlCommand($" DELETE FROM jkh.categories WHERE UID = {topic.Id}", connection))
+            {
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
     }
 }

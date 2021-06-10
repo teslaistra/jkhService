@@ -10,7 +10,7 @@ namespace Topics.Presentation.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
-
+        public int Id { set; get; }
         public TopicModel()
         {
 
@@ -18,8 +18,9 @@ namespace Topics.Presentation.Models
 
         public TopicModel(Topic topic)
         {
-            Name = topic?.Name ?? throw new ArgumentNullException(nameof(topic.Name));
-            Description = topic?.Description ?? throw new ArgumentNullException(nameof(topic.Description));
+            Name = topic?.Name ?? "";
+            Description = topic?.Description ?? "";
+            Id = (int) topic.Id;
         }
 
         public Topic ToEntity()
@@ -27,7 +28,8 @@ namespace Topics.Presentation.Models
             return new Topic()
             {
                 Description = this.Description,
-                Name = this.Name
+                Name = this.Name,
+                Id = this.Id
             };
         } 
 

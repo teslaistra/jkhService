@@ -17,7 +17,8 @@ namespace Topics.Infrastructure.DTO
             return new Topic()
             {
                 Name = name,
-                Description = description
+                Description = description,
+                Id = id
             };
         }
     }
