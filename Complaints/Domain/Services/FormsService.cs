@@ -27,8 +27,8 @@ namespace Forms.Domain.Services
                 Console.WriteLine("bad argument");
                 throw new ArgumentNullException(nameof(form));
             }
-           await _IGeoProvider.getAdress(form);
-           // await _IformRepository.AddForm(new FormDTO(form));
+            FormDTO form_w_geo = await _IGeoProvider.getAdress(new FormDTO(form));
+           await _IformRepository.AddForm(form_w_geo);
         }
 
         public async Task DeleteForm(Form form)

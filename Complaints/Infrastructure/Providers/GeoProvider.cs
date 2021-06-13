@@ -20,34 +20,32 @@ namespace Complaints.Infrastructure.Providers
 {
     public class GeoProvider : IGeoProvider
     {
+        private const string API_GOOGLE_STRING_NAME = "GOOGLE_API";
+        private readonly IConfiguration _configuration;
 
+        public GeoProvider(IConfiguration configuration)
+        {
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        }
 
-            private readonly IConfiguration _configuration;
-
-            public GeoProvider(IConfiguration configuration)
-            {
-                _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            }
-
-        public async Task getAdress(Form form)
+        public async Task<FormDTO> getAdress(FormDTO form)
         {
             string addressToGeocode = form.adress;
 
-            string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?key={1}&address={0}&sensor=false", Uri.EscapeDataString(addressToGeocode), "AIzaSyBF6bQvFLZ009_a4r0Y20LJOYB0hGP_iFM");
+            string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?key={1}&address={0}&sensor=false", Uri.EscapeDataString(addressToGeocode), _configuration.GetConnectionString(API_GOOGLE_STRING_NAME));
             HttpClient client = new HttpClient();
             var response = await client.GetStringAsync(requestUri);
-            //Console.WriteLine(response);
-            var yourXml = XElement.Parse(response); // Parse the response
 
+            var yourXml = XElement.Parse(response);
             var dict = yourXml.Descendants()
                   .Where(node => node.Name == "location")
                   .Descendants()
                   .ToDictionary(node => node.Name.ToString(), node => node.Value);
 
-            var exampleUsername = dict["lat"];
-            var exampleUsername2 = dict["lng"];
+            form.lat = Convert.ToDouble(dict["lat"]);
+            form.lon = Convert.ToDouble(dict["lng"]);
 
-            Console.WriteLine(exampleUsername2);
+            return form;
         }
     }
 }

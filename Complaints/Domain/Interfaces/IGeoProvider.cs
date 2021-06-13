@@ -9,6 +9,6 @@ namespace Complaints.Domain.Interfaces
 {
     public interface IGeoProvider
     {
-        Task getAdress(Form form); 
+        Task<FormDTO> getAdress(FormDTO form); 
     }
 }
