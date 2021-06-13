@@ -1,8 +1,5 @@
 ﻿using Forms.Infrastructure.DTO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Forms.Domain.Entities
 {
@@ -15,5 +12,20 @@ namespace Forms.Domain.Entities
         public int UserUID { get; set; }
         public double Lat { get; set; }
         public double Lon { get; set; }
+
+        public Form(FormDTO form)
+        {
+            UID = form.UID;
+            Adress = form.Adress;
+            Date = form.Date;
+            MundepUID = form.MundepUID;
+            UserUID = form.UserUID;
+            Lat = form.Lat;
+            Lon = form.Lon;
+        }
+
+        public Form()
+        {
+        }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Forms.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Forms.Presentation.Models
 {
@@ -27,8 +24,8 @@ namespace Forms.Presentation.Models
             MundepUID = (int)form.MundepUID;
             UID = (int)form.UID;
             UserUID = (int)form.UserUID;
-            Lat = this.Lat;
-            Lon = this.Lon;
+            Lat = form.Lat;
+            Lon = form.Lon;
         }
 
         public Form ToEntity()
@@ -42,7 +39,7 @@ namespace Forms.Presentation.Models
                 UserUID = (int)this.UserUID,
                 Lat = this.Lat,
                 Lon = this.Lon
-        };
+            };
         }
     }
 }

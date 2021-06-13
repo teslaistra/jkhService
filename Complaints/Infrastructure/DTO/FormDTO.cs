@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Forms.Domain.Entities;
 
 namespace Forms.Infrastructure.DTO
@@ -38,6 +35,10 @@ namespace Forms.Infrastructure.DTO
             UserUID = form.UserUID;
             Lat = form.Lat;
             Lon = form.Lon;
+        }
+
+        public FormDTO()
+        {
         }
     }
 }

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Forms.Domain.Entities;
-using Forms.Domain;
 using Forms.Domain.Interfaces;
 using Forms.Infrastructure.DTO;
 using Complaints.Domain.Interfaces;
+using System.Linq;
 
 namespace Forms.Domain.Services
 {
@@ -28,7 +26,7 @@ namespace Forms.Domain.Services
                 throw new ArgumentNullException(nameof(form));
             }
             FormDTO form_w_geo = await _IGeoProvider.GetAdress(new FormDTO(form));
-           await _IformRepository.AddForm(form_w_geo);
+            await _IformRepository.AddForm(form_w_geo);
         }
 
         public async Task EditForm(Form form)
@@ -47,6 +45,16 @@ namespace Forms.Domain.Services
             {
                 await _IformRepository.EditForm(new FormDTO(form));
             }
+        }
+
+        public async Task<Form[]> GetForms(Form form)
+        {
+            if (form == null)
+            {
+                Console.WriteLine("bad argument");
+                throw new ArgumentNullException(nameof(form));
+            }
+            return (await _IformRepository.GetForms(new FormDTO(form))).Select(form => new Form(form)).ToArray();
         }
     }
 }
