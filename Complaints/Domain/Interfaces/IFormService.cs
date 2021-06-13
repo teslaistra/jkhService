@@ -10,7 +10,6 @@ namespace Forms.Domain.Interfaces
     public interface IFormService
     {
         Task AddForm(Form topic);
-        Task DeleteForm(Form topic);
         Task EditForm(Form topic);
     }
 }

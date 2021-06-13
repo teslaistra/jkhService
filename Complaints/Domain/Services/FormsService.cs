@@ -31,17 +31,6 @@ namespace Forms.Domain.Services
            await _IformRepository.AddForm(form_w_geo);
         }
 
-        public async Task DeleteForm(Form form)
-        {
-            if (form == null)
-            {
-                Console.WriteLine("bad argument");
-                throw new ArgumentNullException(nameof(form));
-            }
-
-            await _IformRepository.DeleteForm(form);
-        }
-
         public async Task EditForm(Form form)
         {
             if (form == null)
@@ -49,7 +38,7 @@ namespace Forms.Domain.Services
                 Console.WriteLine("bad argument");
                 throw new ArgumentNullException(nameof(form));
             }
-            await _IformRepository.EditForm(form);
+            await _IformRepository.EditForm(new FormDTO(form));
         }
     }
 }

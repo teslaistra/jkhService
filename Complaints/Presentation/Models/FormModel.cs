@@ -13,6 +13,9 @@ namespace Forms.Presentation.Models
         public string adress { get; set; }
         public DateTime date { set; get; }
         public int mundepUID { get; set; }
+        public int userUID { get; set; }
+        public double lat { get; set; }
+        public double lon { get; set; }
         public FormModel()
         {
 
@@ -24,6 +27,9 @@ namespace Forms.Presentation.Models
             date = form.date;
             mundepUID = (int)form.mundepUID;
             UID = (int)form.UID;
+            userUID = (int)form.userUID;
+            lat = this.lat;
+            lon = this.lon;
         }
 
         public Form ToEntity()
@@ -33,9 +39,11 @@ namespace Forms.Presentation.Models
                 adress = this.adress,
                 date = this.date,
                 mundepUID = (int)this.mundepUID,
-                UID = (int)this.UID
+                UID = (int)this.UID,
+                userUID = (int)this.userUID,
+                lat = this.lat,
+                lon = this.lon
         };
         }
-
     }
 }

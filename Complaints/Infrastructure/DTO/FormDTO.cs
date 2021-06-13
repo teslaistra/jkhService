@@ -12,7 +12,7 @@ namespace Forms.Infrastructure.DTO
         public string adress { get; set; }
         public DateTime date { set; get; }
         public int mundepUID { get; set; }
-
+        public int userUID { get; set; }
         public double lat { get; set; }
         public double lon { get; set; }
         public Form ToEntity()
@@ -22,7 +22,9 @@ namespace Forms.Infrastructure.DTO
                 UID = UID,
                 adress = adress,
                 date = date,
-                mundepUID = mundepUID
+                mundepUID = mundepUID,
+                lat = lat,
+                lon = lon
             };
         }
 
@@ -33,7 +35,9 @@ namespace Forms.Infrastructure.DTO
             adress = form.adress;
             date = form.date;
             mundepUID = form.mundepUID;
-
+            userUID = form.userUID;
+            lat = form.lat;
+            lon = form.lon;
         }
     }
 }

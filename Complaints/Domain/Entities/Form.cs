@@ -12,5 +12,8 @@ namespace Forms.Domain.Entities
         public string adress { get; set; }
         public DateTime date { set; get; }
         public int mundepUID { get; set; }
+        public int userUID { get; set; }
+        public double lat { get; set; }
+        public double lon { get; set; }
     }
 }

@@ -31,20 +31,9 @@ namespace Forms.Infrastructure.Repositories
             {
                 await cmd.ExecuteNonQueryAsync();
             }
-            Console.WriteLine(form.lat);
         }
 
-        public async Task DeleteForm(Form form)
-        {
-            var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
-            await connection.OpenAsync();
-            using (var cmd = new MySqlCommand($"DELETE FROM jkh.forms WHERE UID = {form.UID}", connection))
-            {
-                await cmd.ExecuteNonQueryAsync();
-            }
-        }
-
-        public async Task EditForm(Form form)
+        public async Task EditForm(FormDTO form)
         {   var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
 
             await connection.OpenAsync();
