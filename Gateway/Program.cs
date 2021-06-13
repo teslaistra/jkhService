@@ -14,7 +14,8 @@ namespace Gateway
     public class Program
     {
         public static void Main(string[] args)
-        {
+        {   
+            Console.WriteLine("Started!");
             CreateHostBuilder(args).Build().Run();
         }
 

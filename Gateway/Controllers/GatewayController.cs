@@ -19,6 +19,7 @@ namespace Gateway.Controllers
 
         public GatewayController(IConfiguration configuration)
         {
+            Console.WriteLine($"gateway555");
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
@@ -26,11 +27,12 @@ namespace Gateway.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTopics()
         {
+            Console.WriteLine($"gateway0");
             var logger = new LoggerConfiguration()
                    .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
                    .Enrich.FromLogContext()
                    .CreateLogger();
-
+            Console.WriteLine($"gateway1");
             try
             {
 
@@ -41,7 +43,7 @@ namespace Gateway.Controllers
                     client.DefaultRequestHeaders.Add("sentry-header", "123");
                     //Реализация обращения к сервису
                     var url = _configuration.GetSection("TopicsURI").Value;
-                    Console.WriteLine($"{url}topics");
+                    Console.WriteLine($"gateway");
 
                     var resultMessage = await client.GetAsync($"{url}topics");
                     Console.WriteLine($"{url}topics");
