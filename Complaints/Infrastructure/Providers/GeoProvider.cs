@@ -28,9 +28,9 @@ namespace Complaints.Infrastructure.Providers
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
-        public async Task<FormDTO> getAdress(FormDTO form)
+        public async Task<FormDTO> GetAdress(FormDTO form)
         {
-            string addressToGeocode = form.adress;
+            string addressToGeocode = form.Adress;
 
             string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?key={1}&address={0}&sensor=false", Uri.EscapeDataString(addressToGeocode), _configuration.GetConnectionString(API_GOOGLE_STRING_NAME));
             HttpClient client = new HttpClient();
@@ -42,8 +42,8 @@ namespace Complaints.Infrastructure.Providers
                   .Descendants()
                   .ToDictionary(node => node.Name.ToString(), node => node.Value);
 
-            form.lat = Convert.ToDouble(dict["lat"]);
-            form.lon = Convert.ToDouble(dict["lng"]);
+            form.Lat = Convert.ToDouble(dict["lat"]);
+            form.Lon = Convert.ToDouble(dict["lng"]);
 
             return form;
         }

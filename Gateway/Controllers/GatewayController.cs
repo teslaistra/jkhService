@@ -15,7 +15,7 @@ namespace Gateway.Controllers
     [ApiController]
     public class GatewayController : ControllerBase
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public GatewayController(IConfiguration configuration)
         {
@@ -38,20 +38,18 @@ namespace Gateway.Controllers
 
                 logger.Error("Новый поиск тем");
 
-                using (HttpClient client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Add("sentry-header", "123");
-                    //Реализация обращения к сервису
-                    var url = _configuration.GetSection("TopicsURI").Value;
-                    Console.WriteLine($"gateway");
+                using HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Add("sentry-header", "123");
+                //Реализация обращения к сервису
+                var url = _configuration.GetSection("TopicsURI").Value;
+                Console.WriteLine($"gateway");
 
-                    var resultMessage = await client.GetAsync($"{url}topics");
-                    Console.WriteLine($"{url}topics");
+                var resultMessage = await client.GetAsync($"{url}topics");
+                Console.WriteLine($"{url}topics");
 
-                    resultMessage.EnsureSuccessStatusCode();
-                    var result = await resultMessage.Content.ReadAsStringAsync();
-                    return Ok(result);
-                }
+                resultMessage.EnsureSuccessStatusCode();
+                var result = await resultMessage.Content.ReadAsStringAsync();
+                return Ok(result);
             }
             catch (Exception e)
             {

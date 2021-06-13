@@ -9,22 +9,22 @@ namespace Forms.Infrastructure.DTO
     public class FormDTO
     {
         public int UID { get; set; }
-        public string adress { get; set; }
-        public DateTime date { set; get; }
-        public int mundepUID { get; set; }
-        public int userUID { get; set; }
-        public double lat { get; set; }
-        public double lon { get; set; }
+        public string Adress { get; set; }
+        public DateTime Date { set; get; }
+        public int MundepUID { get; set; }
+        public int UserUID { get; set; }
+        public double Lat { get; set; }
+        public double Lon { get; set; }
         public Form ToEntity()
         {
             return new Form()
             {
                 UID = UID,
-                adress = adress,
-                date = date,
-                mundepUID = mundepUID,
-                lat = lat,
-                lon = lon
+                Adress = Adress,
+                Date = Date,
+                MundepUID = MundepUID,
+                Lat = Lat,
+                Lon = Lon
             };
         }
 
@@ -32,12 +32,12 @@ namespace Forms.Infrastructure.DTO
         {
 
             UID = form.UID;
-            adress = form.adress;
-            date = form.date;
-            mundepUID = form.mundepUID;
-            userUID = form.userUID;
-            lat = form.lat;
-            lon = form.lon;
+            Adress = form.Adress;
+            Date = form.Date;
+            MundepUID = form.MundepUID;
+            UserUID = form.UserUID;
+            Lat = form.Lat;
+            Lon = form.Lon;
         }
     }
 }

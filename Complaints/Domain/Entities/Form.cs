@@ -9,11 +9,11 @@ namespace Forms.Domain.Entities
     public class Form
     {
         public int UID { get; set; }
-        public string adress { get; set; }
-        public DateTime date { set; get; }
-        public int mundepUID { get; set; }
-        public int userUID { get; set; }
-        public double lat { get; set; }
-        public double lon { get; set; }
+        public string Adress { get; set; }
+        public DateTime Date { set; get; }
+        public int MundepUID { get; set; }
+        public int UserUID { get; set; }
+        public double Lat { get; set; }
+        public double Lon { get; set; }
     }
 }

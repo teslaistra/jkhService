@@ -3,19 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Forms.Domain.Entities;
 
 namespace Forms.Presentation.Models
 {
     public class FormModel
     {
         public int UID { get; set; }
-        public string adress { get; set; }
-        public DateTime date { set; get; }
-        public int mundepUID { get; set; }
-        public int userUID { get; set; }
-        public double lat { get; set; }
-        public double lon { get; set; }
+        public string Adress { get; set; }
+        public DateTime Date { set; get; }
+        public int MundepUID { get; set; }
+        public int UserUID { get; set; }
+        public double Lat { get; set; }
+        public double Lon { get; set; }
         public FormModel()
         {
 
@@ -23,26 +22,26 @@ namespace Forms.Presentation.Models
 
         public FormModel(Form form)
         {
-            adress = form.adress;
-            date = form.date;
-            mundepUID = (int)form.mundepUID;
+            Adress = form.Adress;
+            Date = form.Date;
+            MundepUID = (int)form.MundepUID;
             UID = (int)form.UID;
-            userUID = (int)form.userUID;
-            lat = this.lat;
-            lon = this.lon;
+            UserUID = (int)form.UserUID;
+            Lat = this.Lat;
+            Lon = this.Lon;
         }
 
         public Form ToEntity()
         {
             return new Form()
             {
-                adress = this.adress,
-                date = this.date,
-                mundepUID = (int)this.mundepUID,
+                Adress = this.Adress,
+                Date = this.Date,
+                MundepUID = (int)this.MundepUID,
                 UID = (int)this.UID,
-                userUID = (int)this.userUID,
-                lat = this.lat,
-                lon = this.lon
+                UserUID = (int)this.UserUID,
+                Lat = this.Lat,
+                Lon = this.Lon
         };
         }
     }

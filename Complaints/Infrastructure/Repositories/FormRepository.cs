@@ -27,20 +27,16 @@ namespace Forms.Infrastructure.Repositories
         {
             var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
             await connection.OpenAsync();
-            using (var cmd = new MySqlCommand($" INSERT INTO jkh.forms (adress, date, mundep_UID, lat, lon) VALUES ('{form.adress}', curdate(), {form.mundepUID}, {form.lat}, {form.lon})", connection))
-            {
-                await cmd.ExecuteNonQueryAsync();
-            }
+            using var cmd = new MySqlCommand($" INSERT INTO jkh.forms (Adress, date, mundep_UID, lat, lon, user_UID) VALUES ('{form.Adress}', curdate(), {form.MundepUID}, {form.Lat}, {form.Lon}, {form.UserUID})", connection);
+            await cmd.ExecuteNonQueryAsync();
         }
 
         public async Task EditForm(FormDTO form)
         {   var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
 
             await connection.OpenAsync();
-            using (var cmd = new MySqlCommand($"UPDATE jkh.forms t SET t.mundep_UID = '{form.mundepUID}', t.adress = '{form.adress}' WHERE t.UID = {form.UID}", connection))
-            {
-                await cmd.ExecuteNonQueryAsync();
-            }
+            using var cmd = new MySqlCommand($"UPDATE jkh.forms t SET t.mundep_UID = '{form.MundepUID}', t.Adress = '{form.Adress}' WHERE t.UID = {form.UID}", connection);
+            await cmd.ExecuteNonQueryAsync();
         }
     }
 }

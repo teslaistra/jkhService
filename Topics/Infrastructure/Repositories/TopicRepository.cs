@@ -30,18 +30,17 @@ namespace Topics.Infrastructure.Repositories
             using (var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME)))
             {
                 await connection.OpenAsync();
-                using (var cmd = new MySqlCommand("SELECT * FROM jkh.categories", connection))
+                using var cmd = new MySqlCommand("SELECT * FROM jkh.categories", connection);
+                var reader = await cmd.ExecuteReaderAsync();
+                while (reader.Read())
                 {
-                    var reader = await cmd.ExecuteReaderAsync();
-                    while (reader.Read())
+                    topic.Add(new TopicDTO()
                     {
-                        topic.Add(new TopicDTO() {
-                            id = int.Parse(reader["UID"].ToString()),
-                            name = Encoding.UTF8.GetString(((byte[])reader["name"])),
-                            description = Encoding.UTF8.GetString(((byte[])reader["description"])) 
-                        });
-                        
-                    }
+                        Id = int.Parse(reader["UID"].ToString()),
+                        Name = Encoding.UTF8.GetString(((byte[])reader["name"])),
+                        Description = Encoding.UTF8.GetString(((byte[])reader["description"]))
+                    });
+
                 }
             }
             return topic.Select(e => e.ToEntity()).ToArray();
@@ -51,20 +50,16 @@ namespace Topics.Infrastructure.Repositories
         {
             var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
             await connection.OpenAsync();
-            using (var cmd = new MySqlCommand($" INSERT INTO jkh.categories (name, description) VALUES ('{topic.Name}', '{topic.Description}')", connection))
-            {
-                await cmd.ExecuteNonQueryAsync();
-            }   
+            using var cmd = new MySqlCommand($" INSERT INTO jkh.categories (name, description) VALUES ('{topic.Name}', '{topic.Description}')", connection);
+            await cmd.ExecuteNonQueryAsync();
         }
 
         public async Task DeleteTopic(Topic topic)
         {
             var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
             await connection.OpenAsync();
-            using (var cmd = new MySqlCommand($" DELETE FROM jkh.categories WHERE UID = {topic.Id}", connection))
-            {
-                await cmd.ExecuteNonQueryAsync();
-            }
+            using var cmd = new MySqlCommand($" DELETE FROM jkh.categories WHERE UID = {topic.Id}", connection);
+            await cmd.ExecuteNonQueryAsync();
         }
 
         public async Task EditTopic(Topic topic)
