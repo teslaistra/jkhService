@@ -50,11 +50,6 @@ namespace Forms.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit([FromBody] FormModel model)
         {
-            var logger = new LoggerConfiguration()
-                .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
-                .WriteTo.Console()
-                .Enrich.FromLogContext()
-                .CreateLogger();
             try
             {
                 logger.Information("Запрос на изменение формы");
