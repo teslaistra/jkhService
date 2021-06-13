@@ -5,15 +5,13 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-nanoserver-1903 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-nanoserver-1903 AS build
 WORKDIR /src
-COPY ["Complaints/Complaints.csproj", "Complaints/"]
-RUN dotnet restore "Complaints/Complaints.csproj"
+COPY ["Complaints.csproj", ""]
+RUN dotnet restore "Complaints.csproj"
 COPY . .
-WORKDIR "/src/Complaints"
+WORKDIR "/src"
 RUN dotnet build "Complaints.csproj" -c Release -o /app/build
 
 FROM build AS publish
@@ -21,5 +19,7 @@ RUN dotnet publish "Complaints.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
+EXPOSE 5535
+ENV ASPNETCORE_URLS http://<container ip>:5535
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Complaints.dll"]
