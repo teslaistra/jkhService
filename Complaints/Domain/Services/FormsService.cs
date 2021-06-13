@@ -38,7 +38,15 @@ namespace Forms.Domain.Services
                 Console.WriteLine("bad argument");
                 throw new ArgumentNullException(nameof(form));
             }
-            await _IformRepository.EditForm(new FormDTO(form));
+            if (form.Adress != "")
+            {
+                FormDTO form_w_NewGeo = await _IGeoProvider.GetAdress(new FormDTO(form));
+                await _IformRepository.EditForm(form_w_NewGeo);
+            }
+            else
+            {
+                await _IformRepository.EditForm(new FormDTO(form));
+            }
         }
     }
 }

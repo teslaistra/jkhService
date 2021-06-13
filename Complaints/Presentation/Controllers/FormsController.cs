@@ -3,6 +3,7 @@ using Forms.Presentation.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace Forms.Presentation.Controllers
 {
     [ApiController]
-    [Route("forms")]
+   
     public class FormsController : ControllerBase
     {
         private readonly IFormService _formsService;
@@ -23,7 +24,7 @@ namespace Forms.Presentation.Controllers
         }
 
         //[HttpGet]
-       
+        [Route("addforms")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] FormModel model)
         {
@@ -44,24 +45,24 @@ namespace Forms.Presentation.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Произошла ошибка, обратитесь в службу поддержки!");
             }
         }
-
-        [HttpPut]
-        public async Task<IActionResult> Put([FromBody] FormModel model)
+        [Route("editforms")]
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromBody] FormModel model)
         {
-           /* var logger = new LoggerConfiguration()
+            var logger = new LoggerConfiguration()
                 .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
                 .WriteTo.Console()
                 .Enrich.FromLogContext()
-                .CreateLogger();*/
+                .CreateLogger();
             try
             {
-             //   logger.Information("Запрос на изменение темы");
+                logger.Information("Запрос на изменение формы");
                 await _formsService.EditForm(model.ToEntity());
-                return StatusCode(StatusCodes.Status201Created);
+                return StatusCode(StatusCodes.Status200OK);
             }
             catch (Exception e)
             {
-             //   logger.Error(e, "Произошла ошибка");
+                logger.Error(e, "Произошла ошибка");
                 return StatusCode(StatusCodes.Status500InternalServerError, "Произошла ошибка, обратитесь в службу поддержки!");
             }
         }
