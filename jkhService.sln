@@ -5,12 +5,14 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway", "Gateway\Gateway.csproj", "{9FC588F9-310B-4CEC-AD02-BF9158E41814}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Topics", "Topics\Topics.csproj", "{0F3AA4B4-F7A9-45DA-B1A3-1D2EEF3CF1D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Topics", "Topics\Topics.csproj", "{0F3AA4B4-F7A9-45DA-B1A3-1D2EEF3CF1D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8BEA9D45-0594-457A-AF6E-1E1E019D03D9}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Complaints", "Complaints\Complaints.csproj", "{FAC78058-64F9-4932-A4CF-2F26CB8FC5E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{0F3AA4B4-F7A9-45DA-B1A3-1D2EEF3CF1D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F3AA4B4-F7A9-45DA-B1A3-1D2EEF3CF1D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F3AA4B4-F7A9-45DA-B1A3-1D2EEF3CF1D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC78058-64F9-4932-A4CF-2F26CB8FC5E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC78058-64F9-4932-A4CF-2F26CB8FC5E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC78058-64F9-4932-A4CF-2F26CB8FC5E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC78058-64F9-4932-A4CF-2F26CB8FC5E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
