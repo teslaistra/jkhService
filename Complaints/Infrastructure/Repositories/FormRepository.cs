@@ -27,7 +27,7 @@ namespace Forms.Infrastructure.Repositories
         {
             var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
             await connection.OpenAsync();
-            using (var cmd = new MySqlCommand($" INSERT INTO jkh.forms (adress, date, mundep_UID) VALUES ('{form.adress}', curdate(), {form.mundepUID})", connection))
+            using (var cmd = new MySqlCommand($" INSERT INTO jkh.forms (adress, date, mundep_UID, lat, lon) VALUES ('{form.adress}', curdate(), {form.mundepUID}, {form.lat}, {form.lon})", connection))
             {
                 await cmd.ExecuteNonQueryAsync();
             }
