@@ -1,4 +1,5 @@
 ﻿using Forms.Infrastructure.DTO;
+using Sentry;
 using System;
 
 namespace Forms.Domain.Entities
@@ -26,6 +27,11 @@ namespace Forms.Domain.Entities
 
         public Form()
         {
+        }
+        public Form(int u_uid, int m_uid)
+        {
+            MundepUID = m_uid;
+            UserUID = u_uid;
         }
     }
 }

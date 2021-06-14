@@ -85,8 +85,6 @@ namespace Forms.Infrastructure.Repositories
                         Lat = double.Parse(reader["lat"].ToString()),
                         Lon = double.Parse(reader["lon"].ToString())
                     });
-                    Console.WriteLine(reader["lat"].ToString());
-
                 }
             }
             return forms.ToArray();

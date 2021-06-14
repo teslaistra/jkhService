@@ -1,4 +1,5 @@
-﻿using Forms.Domain.Interfaces;
+﻿using Forms.Domain.Entities;
+using Forms.Domain.Interfaces;
 using Forms.Presentation.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -63,14 +64,14 @@ namespace Forms.Presentation.Controllers
             }
         }
 
-        [Route("getforms")]
+        [Route("getforms/useruid={u_uid}/mundepuid={m_uid}")]
         [HttpGet]
-        public async Task<IActionResult> Get([FromBody] FormModel model)
+        public async Task<IActionResult> Get([FromRoute] string u_uid, string m_uid)
         {
             try
             {
                 logger.Information("Запрос на получение форм");
-                return Ok((await _formsService.GetForms(model.ToEntity())).Select(Form => new FormModel(Form)));
+                return Ok((await _formsService.GetForms(new Form(int.Parse(u_uid),int.Parse(m_uid)))).Select(Form => new FormModel(Form)));
             }
             catch (Exception e)
             {

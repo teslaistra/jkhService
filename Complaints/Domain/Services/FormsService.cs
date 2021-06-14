@@ -22,7 +22,6 @@ namespace Forms.Domain.Services
         {
             if (form == null)
             {
-                Console.WriteLine("bad argument");
                 throw new ArgumentNullException(nameof(form));
             }
             FormDTO form_w_geo = await _IGeoProvider.GetAdress(new FormDTO(form));
@@ -33,7 +32,6 @@ namespace Forms.Domain.Services
         {
             if (form == null)
             {
-                Console.WriteLine("bad argument");
                 throw new ArgumentNullException(nameof(form));
             }
             if (form.Adress != "")
@@ -51,7 +49,6 @@ namespace Forms.Domain.Services
         {
             if (form == null)
             {
-                Console.WriteLine("bad argument");
                 throw new ArgumentNullException(nameof(form));
             }
             return (await _IformRepository.GetForms(new FormDTO(form))).Select(form => new Form(form)).ToArray();
