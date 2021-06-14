@@ -54,11 +54,11 @@ namespace Topics.Infrastructure.Repositories
             await cmd.ExecuteNonQueryAsync();
         }
 
-        public async Task DeleteTopic(Topic topic)
+        public async Task DeleteTopic(int id)
         {
             var connection = new MySqlConnection(_configuration.GetConnectionString(CONNECTION_STRING_NAME));
             await connection.OpenAsync();
-            using var cmd = new MySqlCommand($" DELETE FROM jkh.categories WHERE UID = {topic.Id}", connection);
+            using var cmd = new MySqlCommand($" DELETE FROM jkh.categories WHERE UID = {id}", connection);
             await cmd.ExecuteNonQueryAsync();
         }
 

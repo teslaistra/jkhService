@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using Topics.Domain.Interfaces;
 using Topics.Domain.Services;
 using Topics.Presentation.Models;
+using Topics.Domain.Entities;
+
 
 namespace Topics.Presentation.Controllers
 {
     [ApiController]
-    [Route("topics")]
     public class TopicsController : ControllerBase
     {
         private readonly ITopicService _topicService;
@@ -24,7 +25,7 @@ namespace Topics.Presentation.Controllers
             _topicService = exerciseService ?? throw new ArgumentNullException(nameof(TopicsService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-
+        [Route("gettopics")]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -36,9 +37,6 @@ namespace Topics.Presentation.Controllers
             try
             {
                 logger.Information("Запрос на получение тем");
-
-                //throw new Exception("Страшная ошибка");
-                //Используем сервис как интерфейс, но вместо него в Startup.cs подставлена реализация
                 return Ok((await _topicService.GetTopics())
                     .Select(topic => new TopicModel(topic)));
             }
@@ -49,6 +47,7 @@ namespace Topics.Presentation.Controllers
             }
         }
 
+        [Route("addtopics")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TopicModel model)
         {
@@ -69,9 +68,9 @@ namespace Topics.Presentation.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Произошла ошибка, обратитесь в службу поддержки!");
             }
         }
-
+        [Route("deletetopics/{id}")]
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] TopicModel model)
+        public async Task<IActionResult> Delete([FromRoute] string id)
         {
             var logger = new LoggerConfiguration()
                 .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
@@ -81,7 +80,7 @@ namespace Topics.Presentation.Controllers
             try
             {
                 logger.Information("Запрос на удаление темы");
-                await _topicService.DeleteTopic(model.ToEntity());
+                await _topicService.DeleteTopic(int.Parse(id));
                 return StatusCode(StatusCodes.Status200OK);
             }
             catch (Exception e)
@@ -90,19 +89,24 @@ namespace Topics.Presentation.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Произошла ошибка, обратитесь в службу поддержки!");
             }
         }
-
-        [HttpPut]
+        [Route("edittopics")]
+        [HttpPost]
         public async Task<IActionResult> Put([FromBody] TopicModel model)
         {
+            Console.WriteLine("edittopics0");
             var logger = new LoggerConfiguration()
                 .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
                 .WriteTo.Console()
                 .Enrich.FromLogContext()
                 .CreateLogger();
+
             try
             {
+                Console.WriteLine("edittopics1");
                 logger.Information("Запрос на изменение темы");
+
                 await _topicService.EditTopic(model.ToEntity());
+                Console.WriteLine("edittopics2");
                 return StatusCode(StatusCodes.Status201Created);
             }
             catch (Exception e)

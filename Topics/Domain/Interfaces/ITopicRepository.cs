@@ -10,7 +10,7 @@ namespace Topics.Domain.Interfaces
     {
         Task<Topic[]> GetTopics();
         Task AddTopic(Topic topic);
-        Task DeleteTopic(Topic topic);
+        Task DeleteTopic(int id);
         Task EditTopic(Topic topic);
     }
 }

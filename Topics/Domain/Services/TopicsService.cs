@@ -32,15 +32,9 @@ namespace Topics.Domain.Services
             await _topicRepository.AddTopic(topic);
         }
 
-        public async Task DeleteTopic(Topic topic)
+        public async Task DeleteTopic(int id)
         {
-            if (topic == null)
-            {
-                Console.WriteLine("bad argument");
-                throw new ArgumentNullException(nameof(topic));
-            }
-
-            await _topicRepository.DeleteTopic(topic);
+            await _topicRepository.DeleteTopic(id);
         }
 
         public async Task EditTopic(Topic topic)
