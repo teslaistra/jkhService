@@ -11,9 +11,7 @@ using Sentry;
 using Serilog;
 using Serilog.Core;
 using System.Net.Http.Json;
-using System.Runtime.InteropServices;
-using System.Text;
-using Gateway.Models;
+
 
 namespace Gateway.Controllers
 {
@@ -39,7 +37,7 @@ namespace Gateway.Controllers
         {
             try
             {
-                logger.Error("Новый поиск тем");
+                logger.Error("Запрос на поиск тем");
                 using HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add("sentry-header", "123");
                 var url = _configuration.GetSection("TopicsURI").Value;
@@ -59,11 +57,9 @@ namespace Gateway.Controllers
         [HttpPost]
         public async Task<IActionResult> EditTopics([FromBody] object model)
         {
-            Console.WriteLine("EditTopics");
             try
             {
-                Console.WriteLine("EditTopics1");
-                logger.Error("Редактирование темы");
+                logger.Error("Запрос на редактирование темы");
                 using HttpClient client = new HttpClient();
                 var uri = _configuration.GetSection("TopicsURI").Value;
                 var resultMessage = await client.PostAsJsonAsync($"{uri}edittopics", model);
@@ -72,7 +68,6 @@ namespace Gateway.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine("EditTopics2");
                 logger.Fatal(e, "Произошла фатальная ошибка");
                 return StatusCode(StatusCodes.Status500InternalServerError, e);
             }
@@ -84,13 +79,11 @@ namespace Gateway.Controllers
         {
             try
             {   
-                logger.Error("Удаление темы");
+                logger.Error("Запрос на удаление темы");
                 using (HttpClient client = new HttpClient())
                 {
                     var uri = _configuration.GetSection("TopicsURI").Value;
                     var resultMessage = await client.DeleteAsync($"{uri}deletetopics/{id}");
-                    Console.WriteLine($"{uri}deletetopics/{id}");
-                    Console.WriteLine(id);
                     var result = await resultMessage.Content.ReadAsStringAsync();
                     return Ok(result);
                 }
@@ -108,7 +101,7 @@ namespace Gateway.Controllers
         {
             try
             {
-                logger.Error("Добавление темы");
+                logger.Error("Запрос на добавление темы");
                 using HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add("sentry-header", "123");
                 var url = _configuration.GetSection("TopicsURI").Value;
