@@ -83,8 +83,6 @@ namespace Topics.Infrastructure.Repositories
             await connection.OpenAsync();
             using (var cmd = new MySqlCommand($"UPDATE jkh.categories t SET t.description = '{description}', t.name = '{name}' WHERE t.UID = {topic.Id}", connection))
             {
-                Console.WriteLine($"UPDATE jkh.categories t SET t.description = '{description}', t.name = '{name}' WHERE t.UID = {topic.Id}");
-
                 await cmd.ExecuteNonQueryAsync();
             }
         }

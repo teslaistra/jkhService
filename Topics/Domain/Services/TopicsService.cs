@@ -25,7 +25,6 @@ namespace Topics.Domain.Services
         {
             if (topic == null)
             {
-                Console.WriteLine("bad argument");
                 throw new ArgumentNullException(nameof(topic));
             }
 
@@ -41,7 +40,6 @@ namespace Topics.Domain.Services
         {
             if (topic == null)
             {
-                Console.WriteLine("bad argument");
                 throw new ArgumentNullException(nameof(topic));
             }
             await _topicRepository.EditTopic(topic);

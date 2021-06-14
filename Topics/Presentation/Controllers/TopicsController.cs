@@ -93,7 +93,6 @@ namespace Topics.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Put([FromBody] TopicModel model)
         {
-            Console.WriteLine("edittopics0");
             var logger = new LoggerConfiguration()
                 .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
                 .WriteTo.Console()
@@ -102,11 +101,8 @@ namespace Topics.Presentation.Controllers
 
             try
             {
-                Console.WriteLine("edittopics1");
                 logger.Information("Запрос на изменение темы");
-
                 await _topicService.EditTopic(model.ToEntity());
-                Console.WriteLine("edittopics2");
                 return StatusCode(StatusCodes.Status201Created);
             }
             catch (Exception e)
