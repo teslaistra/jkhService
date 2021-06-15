@@ -20,14 +20,12 @@ namespace Gateway.Controllers
     public class GatewayController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<GatewayController> _logger;
 
-        private readonly Logger logger = new LoggerConfiguration()
-                   .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
-                   .Enrich.FromLogContext()
-                   .CreateLogger();
-        public GatewayController(IConfiguration configuration)
+        public GatewayController(IConfiguration configuration, ILogger<GatewayController> logger)
         {
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         // GET: api/Gateway
@@ -35,6 +33,11 @@ namespace Gateway.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTopics()
         {
+            var logger = new LoggerConfiguration()
+                     .WriteTo.Sentry(_configuration.GetSection("SENTRY").Value)
+                     .WriteTo.Console()
+                     .Enrich.FromLogContext()
+                     .CreateLogger();
             try
             {
                 logger.Error("Запрос на поиск тем");
@@ -57,6 +60,11 @@ namespace Gateway.Controllers
         [HttpPost]
         public async Task<IActionResult> EditTopics([FromBody] object model)
         {
+            var logger = new LoggerConfiguration()
+                     .WriteTo.Sentry(_configuration.GetConnectionString("SENTRY"))
+                     .WriteTo.Console()
+                     .Enrich.FromLogContext()
+                     .CreateLogger();
             try
             {
                 logger.Error("Запрос на редактирование темы");
@@ -77,6 +85,11 @@ namespace Gateway.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteTopics([FromRoute] string id)
         {
+            var logger = new LoggerConfiguration()
+                     .WriteTo.Sentry(_configuration.GetConnectionString("SENTRY"))
+                     .WriteTo.Console()
+                     .Enrich.FromLogContext()
+                     .CreateLogger();
             try
             {   
                 logger.Error("Запрос на удаление темы");
@@ -99,6 +112,11 @@ namespace Gateway.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTopics([FromBody] object model)
         {
+            var logger = new LoggerConfiguration()
+                     .WriteTo.Sentry(_configuration.GetConnectionString("SENTRY"))
+                     .WriteTo.Console()
+                     .Enrich.FromLogContext()
+                     .CreateLogger();
             try
             {
                 logger.Error("Запрос на добавление темы");

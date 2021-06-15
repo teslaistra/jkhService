@@ -10,7 +10,7 @@ using Topics.Domain.Interfaces;
 using Topics.Domain.Services;
 using Topics.Presentation.Models;
 using Topics.Domain.Entities;
-
+using Microsoft.Extensions.Configuration;
 
 namespace Topics.Presentation.Controllers
 {
@@ -18,19 +18,22 @@ namespace Topics.Presentation.Controllers
     public class TopicsController : ControllerBase
     {
         private readonly ITopicService _topicService;
+        private readonly IConfiguration _configuration;
         private readonly ILogger<TopicsController> _logger;
 
-        public TopicsController(ITopicService exerciseService, ILogger<TopicsController> logger)
+        public TopicsController(ITopicService exerciseService, IConfiguration configuration, ILogger<TopicsController> logger)
         {
             _topicService = exerciseService ?? throw new ArgumentNullException(nameof(TopicsService));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
         }
         [Route("gettopics")]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             var logger = new LoggerConfiguration()
-                .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
+                 .WriteTo.Sentry(_configuration.GetConnectionString("SENTRY"))
                 .WriteTo.Console()
                 .Enrich.FromLogContext()
                 .CreateLogger();
@@ -52,7 +55,7 @@ namespace Topics.Presentation.Controllers
         public async Task<IActionResult> Post([FromBody] TopicModel model)
         {
             var logger = new LoggerConfiguration()
-                .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
+                 .WriteTo.Sentry(_configuration.GetConnectionString("SENTRY"))
                 .WriteTo.Console()
                 .Enrich.FromLogContext()
                 .CreateLogger();
@@ -73,7 +76,7 @@ namespace Topics.Presentation.Controllers
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             var logger = new LoggerConfiguration()
-                .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
+                 .WriteTo.Sentry(_configuration.GetConnectionString("SENTRY"))
                 .WriteTo.Console()
                 .Enrich.FromLogContext()
                 .CreateLogger();
@@ -94,7 +97,7 @@ namespace Topics.Presentation.Controllers
         public async Task<IActionResult> Put([FromBody] TopicModel model)
         {
             var logger = new LoggerConfiguration()
-                .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
+                 .WriteTo.Sentry(_configuration.GetConnectionString("SENTRY"))
                 .WriteTo.Console()
                 .Enrich.FromLogContext()
                 .CreateLogger();

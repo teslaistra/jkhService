@@ -3,6 +3,7 @@ using Forms.Domain.Interfaces;
 using Forms.Presentation.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Core;
@@ -16,17 +17,13 @@ namespace Forms.Presentation.Controllers
     public class FormsController : ControllerBase
     {
         private readonly IFormService _formsService;
+        private readonly IConfiguration _configuration;
         private readonly ILogger<FormsController> _logger;
 
-        private readonly Logger logger = new LoggerConfiguration()
-                .WriteTo.Sentry("https://8472251de833404e9ecd48cdfeb6ed00@o661932.ingest.sentry.io/5764923")
-                .WriteTo.Console()
-                .Enrich.FromLogContext()
-                .CreateLogger();
-
-        public FormsController(IFormService exerciseService, ILogger<FormsController> logger)
+        public FormsController(IFormService exerciseService, ILogger<FormsController> logger, IConfiguration configuration)
         {
             _formsService = exerciseService ?? throw new ArgumentNullException(nameof(Domain.Services.FormsService));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -34,6 +31,11 @@ namespace Forms.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] FormModel model)
         {
+            var logger = new LoggerConfiguration()
+                  .WriteTo.Sentry(_configuration.GetConnectionString("SENTRY"))
+                  .WriteTo.Console()
+                  .Enrich.FromLogContext()
+                  .CreateLogger();
             try
             {
                 logger.Information("Запрос на добавление формы");
@@ -51,6 +53,11 @@ namespace Forms.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit([FromBody] FormModel model)
         {
+            var logger = new LoggerConfiguration()
+                     .WriteTo.Sentry(_configuration.GetConnectionString("SENTRY"))
+                     .WriteTo.Console()
+                     .Enrich.FromLogContext()
+                     .CreateLogger();
             try
             {
                 logger.Information("Запрос на изменение формы");
@@ -68,6 +75,11 @@ namespace Forms.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromRoute] string u_uid, string m_uid)
         {
+            var logger = new LoggerConfiguration()
+                     .WriteTo.Sentry(_configuration.GetConnectionString("SENTRY"))
+                     .WriteTo.Console()
+                     .Enrich.FromLogContext()
+                     .CreateLogger();
             try
             {
                 logger.Information("Запрос на получение форм");
